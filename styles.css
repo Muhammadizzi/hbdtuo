@@ -1,0 +1,400 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+  font-family: "Poppins", sans-serif;
+  overflow: hidden;
+}
+
+/* Happy Birthday screen */
+.birthday-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(
+    135deg,
+    #2c3e50,
+    #34495e
+  ); /* Dark gradient background */
+  color: white;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: gradientAnimation 5s infinite alternate;
+  background-size: 400% 400%;
+  transform-origin: center;
+}
+
+/* Animated Gradient */
+@keyframes gradientAnimation {
+  0% {
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+  }
+  50% {
+    background: linear-gradient(135deg, #312268, #312268); /* Purple gradient */
+  }
+  100% {
+    background: linear-gradient(135deg, #2c3e50, #34495e); /* Darker gradient */
+  }
+}
+
+/* Particle effect */
+.birthday-screen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("https://cdn.pixabay.com/photo/2017/08/30/02/47/confetti-2697156_960_720.png")
+    repeat;
+  opacity: 0.1;
+  animation: confettiFall 3s infinite linear;
+}
+
+@keyframes confettiFall {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0.5;
+  }
+}
+
+/* Title Text */
+.birthday-screen h1 {
+  font-size: 5rem;
+  font-weight: bold;
+  color: #ecf0f1; /* Light color for contrast */
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.8),
+    0 0 15px rgba(255, 255, 255, 0.5);
+  animation: textRotate 3s ease-in-out infinite;
+}
+
+/* Text animation for rotating */
+@keyframes textRotate {
+  0% {
+    transform: rotate(0deg);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),
+      0 0 20px rgba(255, 255, 255, 0.5);
+  }
+  50% {
+    transform: rotate(10deg);
+    text-shadow: 0 0 20px rgba(255, 255, 255, 1),
+      0 0 40px rgba(255, 255, 255, 0.6);
+  }
+  100% {
+    transform: rotate(360deg);
+    text-shadow: 0 0 30px rgba(255, 255, 255, 1),
+      0 0 60px rgba(255, 255, 255, 0.8);
+  }
+}
+
+/* Subtitle Text */
+.birthday-screen p {
+  font-size: 2rem;
+  color: #ecf0f1; /* Light color for readability */
+  margin-bottom: 50px;
+  opacity: 0;
+  animation: fadeIn 2s ease-in-out 1.5s forwards;
+}
+
+/* Subtitle fade-in effect */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Next Button */
+.next-btn {
+  padding: 20px 40px;
+  font-size: 1.5rem;
+  background-color: #ff6f61; /* Soft red button color */
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 15px 25px rgba(255, 149, 122, 0.5);
+  animation: buttonFloat 2s infinite ease-in-out;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Button float effect */
+@keyframes buttonFloat {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.next-btn:hover {
+  background-color: #e74c3c;
+  transform: translateY(-5px) scale(1.05);
+}
+
+.next-btn:focus {
+  outline: none;
+}
+
+.next-btn:active {
+  transform: translateY(0) scale(1);
+}
+
+.next-btn i {
+  margin-right: 15px;
+  font-size: 2rem;
+}
+
+/* Book Container - Hidden initially */
+.container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.book-container {
+  width: 800px;
+  height: 500px;
+  perspective: 1500px;
+  margin-bottom: 20px;
+  display: flex; /* Ensure the content is centered within */
+  justify-content: center; /* Horizontally center the book */
+  align-items: center; /* Vertically center the book */
+}
+
+/* Book Styling */
+.book {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+}
+
+.page {
+  width: 50%;
+  height: 100%;
+  background-color: white;
+  position: absolute;
+  backface-visibility: hidden;
+  transition: transform 3.5s ease;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.left-page {
+  left: 0;
+  background-color: #ffffff;
+}
+
+.right-page {
+  left: 50%;
+  transform-origin: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.page img {
+  width: 80%;
+  height: auto;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+}
+
+.author-name {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #000;
+}
+
+/* Music Player */
+.music-player {
+  text-align: center;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.music-player i {
+  font-size: 70px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+#song-duration {
+  font-size: 16px;
+  color: #333;
+  margin-top: 5px;
+}
+
+#lyrics-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #333;
+  font-size: 20px;
+  font: bold;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+  .book-container {
+    width: 600px;
+    height: 400px;
+  }
+
+  .music-player i {
+    font-size: 50px;
+  }
+
+  #lyrics-container {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .book-container {
+    width: 400px;
+    height: 300px;
+  }
+
+  .page img {
+    width: 90%;
+    left: 5%;
+    top: 5%;
+  }
+
+  .music-player i {
+    font-size: 40px;
+  }
+
+  #song-duration {
+    font-size: 14px;
+  }
+
+  #lyrics-container {
+    font-size: 16px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .book-container {
+    width: 300px;
+    height: 200px;
+  }
+
+  .music-player i {
+    font-size: 30px;
+  }
+
+  .author-name {
+    font-size: 12px;
+  }
+
+  #lyrics-container {
+    font-size: 14px;
+    padding: 10px;
+  }
+} /* Responsive adjustments for Happy Birthday Screen */
+@media (max-width: 1024px) {
+  .birthday-screen h1 {
+    font-size: 4rem;
+    letter-spacing: 3px;
+  }
+
+  .birthday-screen p {
+    font-size: 1.8rem;
+  }
+
+  .next-btn {
+    padding: 15px 30px;
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .birthday-screen {
+    padding: 20px;
+  }
+
+  .birthday-screen h1 {
+    font-size: 2.5rem; /* Adjust title font size */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7);
+    letter-spacing: 1.5px;
+  }
+
+  .birthday-screen p {
+    font-size: 1.2rem; /* Adjust subtitle font size */
+    margin-bottom: 20px;
+  }
+
+  .next-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .birthday-screen {
+    padding: 10px;
+    text-align: center;
+  }
+
+  .birthday-screen h1 {
+    font-size: 2rem;
+    letter-spacing: 1px;
+  }
+
+  .birthday-screen p {
+    font-size: 1rem;
+  }
+
+  .next-btn {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    box-shadow: none; /* Remove shadow for smaller screens */
+  }
+}
